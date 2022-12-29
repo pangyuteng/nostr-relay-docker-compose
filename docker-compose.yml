@@ -10,7 +10,6 @@ services:
         ports:
             - 443:443
     relay:
-        user: nostr:nostr
         build:
             context: nostr-rs-relay
             dockerfile: Dockerfile

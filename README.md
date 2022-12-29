@@ -89,7 +89,7 @@ sudo chmod -R 750 /mnt/scratch/tmp/nostr
 ```
 cd ~/nostr-relay-docker-compose
 docker compose build
-docker compose --env-file .env -f docker-compose.yml -f volume.yml --user nostr up -d
+docker compose --env-file .env -f docker-compose.yml -f volume.yml up -d
 ```
 
 + verify https can be reached in browser/terminal
