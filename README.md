@@ -84,7 +84,7 @@ cp nostr-rs-relay/config.toml /mnt/hdd/nostr
 ```
 cd ~/nostr-relay-docker-compose
 docker compose build
-docker compose-f docker-compose.yml -f volume.yml up -d
+docker compose -f docker-compose.yml -f volume.yml up -d
 ```
 
 + verify https can be reached in browser/terminal
