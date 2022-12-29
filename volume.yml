@@ -2,8 +2,7 @@ version: '3'
 services:
     nginx:
         volumes:
-            - /etc/letsencrypt/live:/etc/letsencrypt/live
-            - /etc/letsencrypt/archive:/etc/letsencrypt/archive
+            - /etc/letsencrypt:/etc/letsencrypt
     relay:
         volumes:
             - /mnt/scratch/tmp/nostr/config.toml:/usr/src/app/config.toml
