@@ -75,8 +75,8 @@ mkdir -p /mnt/scratch/tmp/nostr/data
 cp nostr-rs-relay/config.toml /mnt/scratch/tmp/nostr
 cd /mnt/scratch/tmp/nostr
 
-sudo chgrp -R nostr /mnt/scratch/tmp/nostr/data
-sudo chmod -R 750 /mnt/scratch/tmp/nostr/data
+sudo chgrp -R nostr /mnt/scratch/tmp/nostr
+sudo chmod -R 750 /mnt/scratch/tmp/nostr
 
 
 
