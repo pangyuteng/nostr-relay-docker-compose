@@ -41,10 +41,15 @@ dig A nostr.mydomain.com
 
     + https://stackoverflow.com/questions/61502474/adding-aws-public-certificate-with-nginx
 
-+ change ownership of folder, so containers can access cert files.
++ change ownership of folder, so containers can access cert files as new user
+
 ```
-sudo chown -R ubuntu:ubuntu /etc/letsencrypt/live
-sudo chown -R ubuntu:ubuntu /etc/letsencrypt/archive
+sudo adduser nostr
+sudo chgrp -R nostr /etc/letsencrypt/live
+sudo chgrp -R nostr /etc/letsencrypt/archive
+sudo chmod -R 750 /etc/letsencrypt/live
+sudo chmod -R 750 /etc/letsencrypt/archive
+
 ```
 
 # setup relay
@@ -69,7 +74,12 @@ git submodule update --init
 mkdir -p /mnt/scratch/tmp/nostr/data
 cp nostr-rs-relay/config.toml /mnt/scratch/tmp/nostr
 cd /mnt/scratch/tmp/nostr
-sudo chmod -R 777 data
+
+sudo chgrp -R nostr /mnt/scratch/tmp/nostr/data
+sudo chmod -R 750 /mnt/scratch/tmp/nostr/data
+
+
+
 ```
 
 + edit `/mnt/scratch/tmp/nostr/nostr-rs-relay/config.toml` per your liking
@@ -79,7 +89,7 @@ sudo chmod -R 777 data
 ```
 cd ~/nostr-relay-docker-compose
 docker compose build
-docker compose --env-file .env -f docker-compose.yml -f volume.yml up -d
+docker compose --env-file .env -f docker-compose.yml -f volume.yml --user nostr up -d
 ```
 
 + verify https can be reached in browser/terminal
