@@ -45,6 +45,8 @@ dig A nostr.mydomain.com
 
 ```
 sudo adduser nostr
+sudo usermod -u 1001 nostr
+sudo groupmod -g 1001 nostr
 sudo chgrp -R nostr /etc/letsencrypt/live
 sudo chgrp -R nostr /etc/letsencrypt/archive
 sudo chmod -R 750 /etc/letsencrypt/live
