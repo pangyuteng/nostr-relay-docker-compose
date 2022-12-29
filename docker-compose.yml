@@ -1,0 +1,19 @@
+
+version: '3'
+services:
+    nginx:
+        build:
+            context: nginx
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+            - 8080:8080
+    relay:
+        build:
+            context: nostr-rs-relay
+            dockerfile: Dockerfile
+        restart: always
+        env_file:
+            - .env
+        ports:
+            - 7000:8080
