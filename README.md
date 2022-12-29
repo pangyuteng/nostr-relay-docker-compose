@@ -45,8 +45,8 @@ dig A nostr.mydomain.com
 
 ```
 sudo adduser nginx
-sudo usermod -u 1001 nginx
-sudo groupmod -g 1001 nginx
+sudo usermod -u 2100 nginx
+sudo groupmod -g 2100 nginx
 sudo chgrp -R nginx /etc/letsencrypt/live
 sudo chgrp -R nginx /etc/letsencrypt/archive
 sudo chmod -R 750 /etc/letsencrypt/live
@@ -73,20 +73,18 @@ git submodule update --init
 + create files needed by nostr
 
 ```
-mkdir -p /mnt/scratch/tmp/nostr/data
-cp nostr-rs-relay/config.toml /mnt/scratch/tmp/nostr
-cd /mnt/scratch/tmp/nostr
-
+sudo mkdir -p /mnt/hdd/nostr/data
+cp nostr-rs-relay/config.toml /mnt/hdd/nostr
 ```
 
-+ edit `/mnt/scratch/tmp/nostr/nostr-rs-relay/config.toml` per your liking
++ edit `/mnt/hdd/nostr/config.toml` per your liking
 
 + build and start relay via docker-compose
 
 ```
 cd ~/nostr-relay-docker-compose
 docker compose build
-docker compose --env-file .env -f docker-compose.yml -f volume.yml up -d
+docker compose-f docker-compose.yml -f volume.yml up -d
 ```
 
 + verify https can be reached in browser/terminal
