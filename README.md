@@ -1,20 +1,39 @@
 # nostr-relay-docker-compose
 
-### setup instance ( you can probably do all this via aws-cli, i didn't do that...)
+### setup instance
 
-+ create instance (i used t2.micro, 1cpu, 1GB Ram and 15GB disk ) with ubuntu 20.04 image
-+ ssh into instance ( https://unix.stackexchange.com/a/115860/158701 , user `ubuntu` if you used ubuntu image)
-+ (aws) add ports 80 and 443 (http,https) to instance "inbound rules"
++ i did the below in aws
++ create instance (i used t2.micro, 1cpu, 1GB Ram and 15GB disk ) with "Ubuntu 20.04 image".
++ add ports 80 and 443 (http,https) to instance "inbound rules"
++ if you need help with ssh, see  https://unix.stackexchange.com/a/115860/158701
+    + default username for ubuntu is `ubuntu`.
++ you can probably do all this via aws-cli, i didn't do that.
+
+### security stuff
+
++ disable ssh password auth  https://stackoverflow.com/questions/20898384/disable-password-authentication-for-ssh
++ enable fail2ban https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-20-04
++ i didnt't do this: only allow certain ips to access port 22 via `iptables`
 
 ### setup domain/dns
 
-+ buy the domain and setup dns (i used aws, route53)
-    + after domain name purchase, in aws create "hosted zone/dns" for domain
-    + create simple mapping to map "nostr.mydomain.com" to the instance ip "1.1.1.1" (type `A`).
-    + not sure but i create a cert here for "nostr.mydomain.com", and added an entry in the dns (type `CNAME`).
++ purchase a domain and setup dns (i used aws route53)
+    + after domain name purchase, in aws create "hosted zone/dns" for domain, aws will auto configure `NS` and `SOA` for you.
+    + you then need to create below row.
+    ```
+    "Record name":"nostr.mydomain.com"
+    "Type": "A"
+    "Value": "1.2.3.4" (instance's ip)
+    ```
+
++ verify via dig
+```
+dig A nostr.mydomain.com
+```
+
 ### get https cert
 
-+ follow [https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal)
++ to get the https sert, follow [https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal)
 
 + more links if you can't get above to work...
  
@@ -22,36 +41,52 @@
 
     + https://stackoverflow.com/questions/61502474/adding-aws-public-certificate-with-nginx
 
-
-+ actual certs are below, so you gotta chown the folder
++ change ownership of folder, so containers can access cert files.
 ```
-chown -R ubuntu:ubuntu /etc/letsencrypt/archive
-```
-# setup relay in instance
+sudo chown -R ubuntu:ubuntu /etc/letsencrypt/live
+sudo chown -R ubuntu:ubuntu /etc/letsencrypt/archive
 ```
 
-# install docker.
+# setup relay
+```
 
-# install relay and nginx in containers
++ install docker, follow https://docs.docker.com/engine/install/ubuntu
 
++ add `ubuntu` to group `docker`, follow https://docs.docker.com/engine/install/linux-postinstall
+
++ clone repo
+
+```
+cd ~
 git clone https://github.com/pangyuteng/nostr-relay-docker-compose.git
 cd nostr-relay-docker-compose
 git submodule update --init
+```
 
++ create files needed by nostr
+
+```
 mkdir -p /mnt/scratch/tmp/nostr/data
 cp nostr-rs-relay/config.toml /mnt/scratch/tmp/nostr
 cd /mnt/scratch/tmp/nostr
 sudo chmod -R 777 data
+```
 
++ edit `/mnt/scratch/tmp/nostr/nostr-rs-relay/config.toml` per your liking
+
++ build and start relay via docker-compose
+
+```
 cd ~/nostr-relay-docker-compose
 docker compose build
 docker compose --env-file .env -f docker-compose.yml -f volume.yml up -d
-
-
 ```
 
-### verify relay is setup via `noscl`
++ verify https can be reached in browser/terminal
 
 ```
-https://github.com/fiatjaf/noscl
+curl https://nostr.mydomain.com
 ```
+
++ verify relay is setup via nostr client, for example `noscl` https://github.com/fiatjaf/noscl
+
