@@ -6,3 +6,5 @@ RUN rm /etc/nginx/conf.d/default.conf
 
 # add the .conf file we have created
 COPY nginx.conf /etc/nginx/nginx.conf
+
+RUN useradd --create-home nostr
