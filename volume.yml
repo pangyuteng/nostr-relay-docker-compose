@@ -1,9 +1,9 @@
 version: '3'
 services:
     nginx:
-        volums:
-            - /mnt/scratch/tmp/nostr/nginx/fullchain.pem:/etc/veryprivate/fullchain.pem
-            - /mnt/scratch/tmp/nostr/nginx/privkey.pem:/etc/veryprivate/privkey.pem
+        volumes:
+            - /etc/letsencrypt/live/nostr.aigonewrong.com/fullchain.pem
+            - /etc/letsencrypt/live/nostr.aigonewrong.com/privkey.pem
     relay:
         volumes:
             - /mnt/scratch/tmp/nostr/config.toml:/usr/src/app/config.toml
