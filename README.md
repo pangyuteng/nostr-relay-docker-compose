@@ -44,11 +44,11 @@ dig A nostr.mydomain.com
 + change ownership of folder, so containers can access cert files as new user
 
 ```
-sudo adduser nostr
-sudo usermod -u 1001 nostr
-sudo groupmod -g 1001 nostr
-sudo chgrp -R nostr /etc/letsencrypt/live
-sudo chgrp -R nostr /etc/letsencrypt/archive
+sudo adduser nginx
+sudo usermod -u 1001 nginx
+sudo groupmod -g 1001 nginx
+sudo chgrp -R nginx /etc/letsencrypt/live
+sudo chgrp -R nginx /etc/letsencrypt/archive
 sudo chmod -R 750 /etc/letsencrypt/live
 sudo chmod -R 750 /etc/letsencrypt/archive
 
@@ -77,7 +77,7 @@ mkdir -p /mnt/scratch/tmp/nostr/data
 cp nostr-rs-relay/config.toml /mnt/scratch/tmp/nostr
 cd /mnt/scratch/tmp/nostr
 
-sudo chgrp -R nostr /mnt/scratch/tmp/nostr
+sudo chgrp -R nginx /mnt/scratch/tmp/nostr
 sudo chmod -R 750 /mnt/scratch/tmp/nostr
 
 
