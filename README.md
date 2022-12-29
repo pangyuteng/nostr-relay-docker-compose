@@ -55,7 +55,7 @@ sudo chmod -R 750 /etc/letsencrypt/archive
 ```
 
 # setup relay
-```
+
 
 + install docker, follow https://docs.docker.com/engine/install/ubuntu
 
@@ -76,11 +76,6 @@ git submodule update --init
 mkdir -p /mnt/scratch/tmp/nostr/data
 cp nostr-rs-relay/config.toml /mnt/scratch/tmp/nostr
 cd /mnt/scratch/tmp/nostr
-
-sudo chgrp -R nginx /mnt/scratch/tmp/nostr
-sudo chmod -R 750 /mnt/scratch/tmp/nostr
-
-
 
 ```
 
