@@ -14,16 +14,16 @@ app = Flask(__name__,
     template_folder='templates',
 )
 
-@app.route('/')
+@app.route('/nevergonnagiveyouup')
 def index():
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ", code=302)
 
-@app.route('/home')
+@app.route('/nevergonnagiveyouup/home')
 def home():
     num_str = "21"
     return render_template("home.html",num_str=num_str)
 
-@app.route('/hello')
+@app.route('/nevergonnagiveyouup/hello')
 def hello():
     return jsonify({'message': "hello"})
 
