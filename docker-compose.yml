@@ -20,5 +20,6 @@ services:
             context: flask
             dockerfile: Dockerfile
         restart: always
+        command: python app.py
         ports:
             - 5000:5000
