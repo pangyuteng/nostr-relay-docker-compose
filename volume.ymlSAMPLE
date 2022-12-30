@@ -3,7 +3,7 @@ services:
     nginx:
         volumes:
             - /etc/letsencrypt:/etc/letsencrypt
-            - /mnt/hdd/nostr/.wellknown:/usr/nostr/.wellknown
+            - /mnt/hdd/nostr/.well-known:/usr/nostr/.well-known
     relay:
         volumes:
             - /mnt/hdd/nostr/config.toml:/usr/src/app/config.toml
