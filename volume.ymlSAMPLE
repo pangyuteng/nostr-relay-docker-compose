@@ -8,3 +8,6 @@ services:
         volumes:
             - /mnt/hdd/nostr/config.toml:/usr/src/app/config.toml
             - /mnt/hdd/nostr/data:/usr/src/app/db
+    flask:
+        volumes:
+            - /mnt/hdd/nostr/.well-known:/usr/nostr/.well-known
